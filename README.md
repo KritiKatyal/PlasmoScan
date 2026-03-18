@@ -35,17 +35,21 @@ The application assists medical professionals and healthcare workers in diagnosi
 - **YOLOv8 (Ultralytics):** State-of-the-art object detection model for malaria stage classification.
 - **Flask:** Lightweight Python backend serving the prediction API.
 - **Flutter / Dart:** Cross-platform UI framework for the mobile application.
-- **Firebase:** Authentication, Firestore database, and Storage.
+- **Firebase Authentication:** Secure user login and access control.
+- **Docker:** Containerization of backend and model for portability and scalability.
+- **Hugging Face Spaces:** Cloud deployment platform for hosting the model and API.
 - **PIL (Pillow):** Image processing and bounding box annotation.
-- **Programming Languages:**
-  - Dart
-  - Python
-  - C++
-  - CMake
-  - Swift
-  - C
+
+**Programming Languages:**
+- Dart
+- Python
+- C++
+- CMake
+- Swift
+- C
 
 ---
+
 
 ## Project Structure
 
@@ -57,18 +61,11 @@ PlasmoScan-main/
 │   ├── login.dart          # Login screen
 │   ├── signup.dart         # Sign-up screen
 │   ├── home_page.dart      # Main home screen
-│   ├── camera_page.dart    # Image capture/upload screen
-│   ├── result.dart         # Detection result display
 │   ├── more_info.dart      # Detailed result information
 │   ├── symptoms_page.dart  # Malaria symptoms information
 │   ├── preventions_page.dart # Prevention guidelines
 │   ├── profile_page.dart   # User profile management
 │   └── important_links.dart# Health resource links
-├── backend/
-│   └── model/
-│       ├── app.py          # Flask prediction API server
-│       ├── malaria.pt      # Trained YOLOv8 model weights
-│       └── requirements.txt# Python dependencies
 ├── assets/                 # Images, icons, and media
 ├── android/                # Android native project files
 ├── ios/                    # iOS native project files
@@ -87,11 +84,13 @@ PlasmoScan-main/
 
 ### Flask API Backend
 - Exposes a `/predict` POST endpoint that accepts blood smear image uploads.
+- Receives images via **HTTP multipart requests** from the Flutter frontend.
 - Processes images using the YOLOv8 model and returns structured JSON predictions.
-- Saves annotated result images to a static directory for retrieval by the Flutter frontend.
-- Runs on `host='0.0.0.0'`, `port=5000`.
+- Deployed using Docker on Hugging Face Spaces for scalable inference.
+- Supports concurrent requests for real-time detection.
 
 ---
+
 
 ## Dataset
 
@@ -107,10 +106,12 @@ The malaria detection model was trained on microscopy blood smear images coverin
 
 ---
 
+
 ## Performance Metrics
 
 - **Confidence Threshold:** ≥ 70% (predictions below this threshold are discarded)
 - **Detection Model:** YOLOv8 (custom-trained on malaria blood smear data)
+- **Deployment:** Dockerized backend hosted on Hugging Face Spaces for low-latency inference
 
 ---
 
@@ -120,12 +121,12 @@ The malaria detection model was trained on microscopy blood smear images coverin
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/PlasmoScan.git
+   git clone https://github.com/KritiKatyal/PlasmoScan.git
    ```
 
 2. Navigate to the backend model directory:
    ```bash
-   cd PlasmoScan-main/backend/model
+   cd backend/model
    ```
 
 3. Install Python dependencies:
